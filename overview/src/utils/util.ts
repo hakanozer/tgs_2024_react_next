@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ICustomer } from "../models/ICustomer";
 
 export const storeCustomer = (customer: ICustomer) => {
@@ -9,8 +10,17 @@ export const storeCustomer = (customer: ICustomer) => {
 export const getCustomer = () => {
     const stCustomer = localStorage.getItem('customer')
     if (stCustomer) {
-        const customer = JSON.parse(stCustomer) as ICustomer
-        return customer
+        try {
+            const customer = JSON.parse(stCustomer) as ICustomer
+            return customer
+        } catch (error) {
+            localStorage.removeItem('customer')
+        }
     }
     return null
+}
+
+export const useCall = () => {
+    const [Search, setSearch] = useState('')
+    return Search
 }
