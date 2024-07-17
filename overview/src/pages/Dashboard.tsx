@@ -1,39 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { getCustomer, useCall } from '../utils/util'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SearchForm from '../components/SearchForm'
 
 function Dashboard() {
 
-  useCall()
-  const [Search, setSearch] = useState('')
-
   const navigate = useNavigate()
-  useEffect(() => {
-    console.log("useEffect - 1 Call")
-    const customer = getCustomer()
-    if (customer === null) {
-      navigate('/')
-    }
-  }, [])
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
-    console.log("useEffect - 2 Call")
-  }, [])
+    console.log(search)
+  }, [search])
 
-  useEffect(() => {
-    console.log(Search)
-  }, [Search])
-
-
+  const sendSearch = (evt: FormEvent) => {
+    evt.preventDefault()
+    console.log("Send Search", search)
+  }
 
 
   return (
     <>
       <h2>Dashboard</h2>
-      <div className='col-sm-4'>
-        <input onChange={(evt) => setSearch(evt.target.value)} placeholder='Search..' className='form-control' />
-      </div>
-      
+      <SearchForm setSearch={setSearch} sendSearch={sendSearch} search={search} />
+      <div>{search}</div>
     </>
   )
 

@@ -18,7 +18,7 @@ function Login() {
     customerLogin(username, password).then(res => {
       const data = res.data
       storeCustomer(data)
-      navigate('/dashboard')
+      navigate('/dashboard', {replace: true})
     }).catch(err => {
       console.log(err.message)
       toast.warning(err.message)
