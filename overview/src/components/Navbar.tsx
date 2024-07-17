@@ -1,14 +1,20 @@
-import React from 'react'
+import React, { FormEvent, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { ICustomer } from '../models/ICustomer'
 
 function Navbar( props: {customer?: ICustomer} ) {
 
+  const [q, setQ] = useState('')
   const navigate = useNavigate()  
   const logout = () => {
     localStorage.removeItem('customer')
     navigate('/', {replace: true})
-  }  
+  }
+
+  const sendSearch = (evt: FormEvent) => {
+    evt.preventDefault()
+    navigate('/search?q='+q)
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -42,8 +48,8 @@ function Navbar( props: {customer?: ICustomer} ) {
                 </li>
             }
         </ul>
-        <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <form onSubmit={sendSearch} className="d-flex" role="search">
+            <input onChange={(evt) => setQ(evt.target.value)} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
             <button className="btn btn-outline-success" type="submit">Search</button>
         </form>
         </div>

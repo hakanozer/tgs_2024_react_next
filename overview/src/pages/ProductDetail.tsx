@@ -30,6 +30,7 @@ function ProductDetail() {
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
                     <div>{product.price}₺</div>
+                    <i role='button' className="bi bi-suit-heart" style={{fontSize: 30,}}></i>
                 </div>
                 <div className='col-sm-6'>
                     <img src={bigImage} className='img-fluid' style={{maxHeight: 400,}} />
