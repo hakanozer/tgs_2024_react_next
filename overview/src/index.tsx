@@ -11,18 +11,29 @@ import Control from './pages/Control';
 import Profile from './pages/Profile';
 import ProductDetail from './pages/ProductDetail';
 import Search from './pages/Search';
+import { LikesProvider } from './contexts/LikesContext';
+import Likes from './pages/Likes';
+import { Provider } from 'react-redux';
+import { store } from './useRedux/store';
+import TodoPage from './pages/Todo';
 
 const routes = 
-<BrowserRouter>
-  <Routes>
-    <Route path='/' element={<Login />} />
-    <Route path='/dashboard' element={<Control item={<Dashboard />} />} />
-    <Route path='/profile' element={<Control item={<Profile />} />} />
-    <Route path='/productDetail/:pid' element={<Control item={<ProductDetail />} />} />
-    <Route path='/search' element={<Control item={<Search />} />} />
-  </Routes>
-  <ToastContainer />
-</BrowserRouter>
+<Provider store={store}>
+  <LikesProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/dashboard' element={<Control item={<Dashboard />} />} />
+        <Route path='/profile' element={<Control item={<Profile />} />} />
+        <Route path='/productDetail/:pid' element={<Control item={<ProductDetail />} />} />
+        <Route path='/search' element={<Control item={<Search />} />} />
+        <Route path='/likes' element={<Control item={<Likes />} />} />
+        <Route path='/todo' element={<Control item={<TodoPage />} />} />
+      </Routes>
+      <ToastContainer />
+    </BrowserRouter>
+  </LikesProvider>
+</Provider>
  
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -3,8 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { customerLogin } from '../services/customerService'
 import { toast, ToastContainer } from 'react-toastify'
 import { storeCustomer } from '../utils/util'
+import { useDispatch } from 'react-redux'
+import { TokenAction } from '../useRedux/TokenAction'
+import { TokenType } from '../useRedux/TokenType'
 
 function Login() {
+
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
 
@@ -17,6 +22,11 @@ function Login() {
     //window.location.href = "/dashboard"
     customerLogin(username, password).then(res => {
       const data = res.data
+      const sendObj: TokenAction = {
+        type: TokenType.TOKEN_VALUE,
+        payload: data.token
+      }
+      dispatch(sendObj)
       storeCustomer(data)
       navigate('/dashboard', {replace: true})
     }).catch(err => {

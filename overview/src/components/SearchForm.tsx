@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 function SearchForm(props: {
     setSearch: React.Dispatch<React.SetStateAction<string>>,
     sendSearch: Function,
     search: string
   }) {
+
+  const searchRef = useRef<HTMLInputElement>(null) 
+  useEffect(() => {
+    if (searchRef.current) {
+      searchRef.current.focus()
+      //searchRef.current.style.backgroundColor = 'red'
+    }
+  }, [])
 
   useEffect(() => {
     console.log("Custom Log", props.search)
@@ -13,7 +21,7 @@ function SearchForm(props: {
   return (
     <>
         <form onSubmit={ (evt) => props.sendSearch(evt) } className="d-flex col-4">
-            <input onChange={(evt) => props.setSearch(evt.target.value)} required className='form-control' placeholder='Search..' />
+            <input ref={searchRef} onChange={(evt) => props.setSearch(evt.target.value)} required className='form-control' placeholder='Search..' />
             <button className='btn btn-danger'>Search</button>
         </form>
     </>

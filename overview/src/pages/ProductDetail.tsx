@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { Product } from '../models/IProducts'
 import { singleProduct } from '../services/productService'
+import { addRemoveLike, allLikes } from '../utils/store'
+import { LikeContext } from '../contexts/LikesContext'
 
 function ProductDetail() {
   
@@ -21,6 +23,27 @@ function ProductDetail() {
   }, [])
   
   const item = location.state as Product
+  
+  const likesContext = useContext(LikeContext)
+  const fncLike = () => {
+    const pid = params.pid
+    if (pid) {
+        addRemoveLike(pid)
+        const arrLikes = allLikes()
+        likesContext.setLikes(arrLikes)
+    }
+  }
+
+  const [likesStatus, setLikesStatus] = useState(false)
+  useEffect(() => {
+    const pid = params.pid
+    if (pid) {
+        const likesArr = likesContext.likes
+        const index = likesArr.findIndex(item => item === pid)
+        const likesStatus = index === -1 ? false : true
+        setLikesStatus(likesStatus)
+    }
+  }, [likesContext.likes])
 
   return (
     <>
@@ -30,7 +53,7 @@ function ProductDetail() {
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
                     <div>{product.price}₺</div>
-                    <i role='button' className="bi bi-suit-heart" style={{fontSize: 30,}}></i>
+                    <i onClick={fncLike}  role='button' className="bi bi-suit-heart" style={{fontSize: 30, color: likesStatus === true ? 'red': ''}}></i>
                 </div>
                 <div className='col-sm-6'>
                     <img src={bigImage} className='img-fluid' style={{maxHeight: 400,}} />

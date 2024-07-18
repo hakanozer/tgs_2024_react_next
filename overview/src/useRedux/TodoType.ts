@@ -1,0 +1,6 @@
+export enum TodoType {
+    TODO_ADD="TODO_ADD",
+    TODO_REMOVE="TODO_REMOVE",
+    TODO_LIST="TODO_LIST",
+    TODO_ALL_REMOVE="TODO_ALL_REMOVE"
+}

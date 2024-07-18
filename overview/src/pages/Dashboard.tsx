@@ -31,6 +31,7 @@ function Dashboard() {
     <>
       <h2>Dashboard</h2>
       <SearchForm setSearch={setSearch} sendSearch={sendSearch} search={search} />
+      <hr/>
       <div className='row'>
         {productArr.map((item, index) => 
           <ProductItem key={index} item={item} />
