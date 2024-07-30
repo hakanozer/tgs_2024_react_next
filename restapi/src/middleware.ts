@@ -6,5 +6,5 @@ export function middleware(request: NextRequest) {
     const token = request.headers.get('token')
     const ip = request.headers.get("x-forwarded-for")
     console.log("middleware call", url, ip)
-    return ApiUtil(401, 'Auth Fail', 'Plase Login')
+    //return ApiUtil(401, 'Auth Fail', 'Plase Login')
 }
