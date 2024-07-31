@@ -1,10 +1,11 @@
 import type { NextRequest } from 'next/server'
 import { ApiUtil } from './app/utils/ApiUtil'
 import { decryptJwt, getSession, logoutJwt } from './lib/security'
-import { IUserJwt } from './app/models/IUserJwt'
 
 export async function middleware (request: NextRequest) {
-    const freeUrls = ["/api/v1/user/", "/api-doc"]
+
+    
+    const freeUrls = ["/api/v1/user/", "/api-doc", "/"]
     const url = request.nextUrl.pathname
 
     let loginStatus = true
@@ -35,13 +36,10 @@ export async function middleware (request: NextRequest) {
                         return ApiUtil(403, 'Role Fail', 'Fail')
                     }
                 }
-                
-                
             } catch (error) {
                 //logoutJwt()
                 //return ApiUtil(401, 'Auth Fail', 'Plase Login')
             }
-            
         }
      }
      
