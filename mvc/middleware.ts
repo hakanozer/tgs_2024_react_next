@@ -1,9 +1,10 @@
+'use server'
 import { cookies } from 'next/headers'
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { IUser } from './models/IUser'
+import { IUser } from './app/models/IUser'
  
-export function middleware(request: NextRequest) {
+export function middleware (request: NextRequest) {
+    console.log("call middle")
     const cookie = cookies().get('session')?.value
     if (cookie) {
     try {
@@ -12,7 +13,6 @@ export function middleware(request: NextRequest) {
       } catch (err) {
         console.log("this line middleware")
         // cookie delete
-        cookies().delete('session')
         
       }
     }
