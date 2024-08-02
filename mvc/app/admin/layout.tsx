@@ -20,7 +20,8 @@ export default function DashboardLayout({
         redirect('/') 
       } 
     }else {
-      redirect('/')
+      //redirect('/')
+      throw new Error('Oturum Hatası')
     }
 
     return (

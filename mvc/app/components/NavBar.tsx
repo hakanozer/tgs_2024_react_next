@@ -2,8 +2,10 @@
 import Link from "next/link"
 import { IUser } from "../models/IUser"
 import { usePathname } from "next/navigation"
+import { useCountStore } from "../store/actionStore";
 
 function NavBar( props: {item: IUser} ) {
+  const count = useCountStore((state:any) => state.count);
   const pathName =  usePathname()
   console.log("pathName", pathName)
   const isActive = pathName.startsWith("/admin/product")
@@ -36,7 +38,7 @@ function NavBar( props: {item: IUser} ) {
                 </ul>
                 </li>
                 <li className="nav-item">
-                <a className="nav-link disabled" aria-disabled="true">{props.item.name}</a>
+                <a className="nav-link disabled" aria-disabled="true">{props.item.name} - ({count})</a>
                 </li>
             </ul>
             <form className="d-flex" role="search">
